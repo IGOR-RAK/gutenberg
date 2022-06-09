@@ -1,19 +1,30 @@
-import React from 'react';
+import React, {createContext} from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import {
+  BrowserRouter as Router 
+} from "react-router-dom";
+import './styles/index.scss';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import booksStore from './store/books'
+
+interface State {
+  books: booksStore}
+
+export const books = new booksStore();
+
+export const Context = createContext<State>({
+  books
+})
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Context.Provider value={{books}}>
+  <Router>
+      <App />
+  </Router>
+</Context.Provider>,
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
