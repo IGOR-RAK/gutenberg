@@ -9,29 +9,38 @@ function Books() {
     books.fetchItems();
   }, []);
 
-  console.log(books.favorites);
+  console.log("favorites", books.favorites);
 
   return (
     <div className='wrapper'>
-      {books.favorites.map((fav) => (
-        <div>{fav}</div>
-      ))}
       <div>
-        <SearchInput />
-
+        {books.favorites.map((fav) => (
+          <div key={fav.id}>{fav.title}</div>
+        ))}
+      </div>
+      <SearchInput />
+      <div className='box'>
         {books.items &&
           books.renders.map((item, index) => (
-            <div key={item.id}>
+            <div
+              className={"item"}
+              style={{
+                backgroundImage: `url(${item.img}) `,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+              }}
+              key={item.id}
+            >
               <button
                 onClick={() => {
-                  books.setFavorites(item.id);
+                  books.setFavorites(item);
                 }}
               >
                 Add to favorites
               </button>
               <div>{item.author}</div>
               <div>{item.title}</div>
-              <div>{item.img && <img src={item.img} alt='' />}</div>
+              {/* <div>{item.img && <img src={item.img} alt='' />}</div> */}
 
               <div>
                 {item.link && (

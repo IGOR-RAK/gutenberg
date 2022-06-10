@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { IBook, IResourses } from "../models/ibook";
+import { IBook, IResourses, IRenders } from "../models/ibook";
 import Api from "../api/api";
 import { IAgents } from "./../models/ibook";
 
@@ -9,13 +9,13 @@ export default class Books {
   page = 0;
   authorCounter = 0;
   searchInput = "";
-  favorites: number[] = [];
+  favorites: IRenders[] = [];
   constructor() {
     makeAutoObservable(this);
   }
 
-  setFavorites(id: number) {
-    this.favorites.push(id);
+  setFavorites(fav: IRenders) {
+    this.favorites.push(fav);
   }
 
   setSearchInput(str: string) {

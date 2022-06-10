@@ -20,3 +20,12 @@ export interface IBook {
   agents: IAgents[];
   resources: IResourses[];
 }
+
+export interface IRenders {
+  id: number;
+  title: string;
+  description: string;
+  img: string | null;
+  link: string | null;
+  author: string;
+}

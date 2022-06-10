@@ -1,0 +1,24 @@
+.box {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  // grid-template-rows: repeat(2, 300px);
+  // grid-auto-rows: 200px;
+  gap: 10px;
+  grid-auto-flow: row dense;
+  margin: 20px auto;
+}
+.item {
+  background: rgba(46, 97, 46, 0.603);
+  padding: 10px;
+  color: antiquewhite;
+  border: 1px solid antiquewhite;
+  font-family: sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  min-height: 500px;
+}
+
+.span2 {
+  grid-column: span 2;
+  grid-row: span 2;
+}
