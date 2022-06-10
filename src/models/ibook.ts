@@ -27,5 +27,6 @@ export interface IRenders {
   description: string;
   img: string | null;
   link: string | null;
-  author: string;
+  fav:boolean
+  // author: string;
 }

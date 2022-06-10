@@ -13,6 +13,8 @@ function SearchInput() {
   return (
     <div>
       <DebounceInput
+        className="input"
+        placeholder={"Search..."}
         minLength={2}
         debounceTimeout={300}
         value={books.searchInput}

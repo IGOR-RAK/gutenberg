@@ -1,0 +1,60 @@
+.addmore_btn {
+    text-decoration: none; 
+    color: transparent;
+    padding: 20px 40px;
+    font-size: 20px;
+    font-family: sans-serif;
+    letter-spacing: 5px;
+    transition: all 0.5s;
+    position: relative;
+    border-radius: 4px;
+  }
+  .addmore_btn:before {
+    content: "Add More";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: azure;
+    background: #06357a;
+    font-size: 20px;
+    top: 0;
+    left: 100%;
+    border-radius: 4px;
+    letter-spacing: 5px;
+    transition: all 1s;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    transform: scale(0) rotatey(0);
+    opacity: 0;
+  }
+  .addmore_btn:hover:before {
+    transform: scale(1) rotatey(360deg);
+    left: 0;
+    opacity: 1;
+  }
+  .addmore_btn:after {
+    content: "Add More";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: azure;
+    background: #06357a;
+    font-size: 20px;
+    top: 0;
+    left: 0;
+    border-radius: 4px;
+    letter-spacing: 2px;
+    transition: all 1s;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    transform: scale(1) rotatey(0);
+    opacity: 1;
+  }
+  .addmore_btn:hover:after {
+    transform: scale(0) rotatey(360deg);
+    left: -100%;
+    opacity: 0;
+  }
+  

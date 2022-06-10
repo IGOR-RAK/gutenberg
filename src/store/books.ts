@@ -6,8 +6,8 @@ import { IAgents } from "./../models/ibook";
 export default class Books {
   items = [] as IBook[];
   isLoading = false;
+  isSearchLoading = false;
   page = 0;
-  authorCounter = 0;
   searchInput = "";
   favorites: IRenders[] = [];
   constructor() {
@@ -15,7 +15,22 @@ export default class Books {
   }
 
   setFavorites(fav: IRenders) {
-    this.favorites.push(fav);
+    const find = this.favorites.find(item=>item.id===fav.id)
+    if(!find){
+      this.favorites.push(fav)
+      localStorage.setItem('fav', JSON.stringify(this.favorites));
+    } else {
+     this.favorites=this.favorites.filter(item=>item.id !== fav.id);
+     localStorage.setItem('fav', JSON.stringify(this.favorites));
+    
+    }
+    
+  }
+
+  initFav(){
+    const favorites:IRenders[] = JSON.parse(localStorage.getItem('fav') || "") 
+    if(favorites){this.favorites=favorites}
+
   }
 
   setSearchInput(str: string) {
@@ -34,6 +49,10 @@ export default class Books {
     this.isLoading = bool;
   }
 
+  setSearchLoader(bool: boolean) {
+    this.isLoading = bool;
+  }
+
   async fetchItems() {
     try {
       this.setLoading(true);
@@ -41,7 +60,7 @@ export default class Books {
       const res: any = await Api.getCards(this.page);
       const results = res?.data?.results;
       this.addItems(results);
-      if (this.page < 1) {
+      if (this.page < 3) {
         this.fetchItems();
       }
 
@@ -56,12 +75,17 @@ export default class Books {
 
   async fetchItemsByAuthor() {
     try {
+      if(this.searchInput.length === 0){        
+        this.page = 0
+        this.fetchItems()
+      }
       if (this.searchInput.length > 3) {
-        this.setLoading(true);
+        this.setItems([])
+        this.setSearchLoader(true);
         const res: any = await Api.getCardsByAuthor(this.searchInput);
         const results = res?.data?.results;
         this.setItems(results);
-        this.setLoading(false);
+        this.setSearchLoader(false);
       }
     } catch (error) {
       let message;
@@ -89,6 +113,11 @@ export default class Books {
     return result;
   }
 
+  isFav(obj:IBook){
+    const find = this.favorites.find(fav=>fav.id===obj.id)
+    if(find){return true} else {return false}
+  }
+
   get renders() {
     return this.items.map((item) => {
       return {
@@ -97,7 +126,8 @@ export default class Books {
         description: item.description,
         img: this.getResourse("medium", item.resources),
         link: this.getResourse("htm", item.resources),
-        author: this.getAuthor(item.agents),
+        fav:this.isFav(item)
+        // author: this.getAuthor(item.agents),
       };
     });
   }
