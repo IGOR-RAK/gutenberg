@@ -10,9 +10,9 @@ function Books() {
     books.fetchItems();
   }, []);
 
-  // React.useEffect(() => {
-  //   books.initFav();
-  // }, []);
+  React.useEffect(() => {
+    books.initFav();
+  }, []);
 
   console.log("favorites", books.favorites);
 
