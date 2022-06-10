@@ -1,10 +1,10 @@
-interface IAgents {
+export interface IAgents {
   id: number;
   person: string;
   type: string;
 }
 
-interface IResourses {
+export interface IResourses {
   id: number;
   uri: string;
   type: string;
@@ -17,6 +17,6 @@ export interface IBook {
   subjects: string[];
   bookshelves: string[];
   languages: string[];
-  agents:IAgents[]
-  resources:IResourses[]
+  agents: IAgents[];
+  resources: IResourses[];
 }
