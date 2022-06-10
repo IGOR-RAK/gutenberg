@@ -5,13 +5,14 @@ import Api from "../api/api";
 export default class Books {
   items = [] as IBook[];
   isLoading = false;
+  page=0
 
   constructor() {
     makeAutoObservable(this);
   }
 
   setItems(books: IBook[]) {
-    this.items = books;
+    this.items = [...this.items,...books];
   }
 
   setLoading(bool: boolean) {
@@ -21,7 +22,8 @@ export default class Books {
   async fetchItems() {
     try {
       this.setLoading(true);
-      const res = await Api.getCards(2);
+      this.page += 1
+      const res = await Api.getCards(this.page);
       const results = res?.data?.results
       this.setItems(results);
       this.setLoading(false);

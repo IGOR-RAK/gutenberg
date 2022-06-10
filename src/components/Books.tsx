@@ -8,16 +8,12 @@ function Books() {
   React.useEffect(() => {
     books.fetchItems();
   }, []);
-  if (books.isLoading) {
-    return (
-      <div className="books">
-        <div className="loading">...LOADING</div>
-      </div>
-    );
-  }
+
   return (
     <div className="books">
       <div className="loading">{books.items&&books.items.map(item=><div>{item.title}</div>)}</div>
+      {books.isLoading?<div className="loading">...LOADING</div>:null}
+      <button onClick={()=>{books.fetchItems()}}>Add More</button>
     </div>
   );
 }
