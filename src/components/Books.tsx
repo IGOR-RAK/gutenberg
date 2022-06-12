@@ -10,11 +10,11 @@ function Books() {
     books.fetchItems();
   }, []);
 
-  React.useEffect(() => {
-    books.initFav();
-  }, []);
+  // React.useEffect(() => {
+  //   books.initFav();
+  // }, []);
 
-  console.log("favorites", books.favorites);
+
 
   if (books.isSearchLoading) {
     return (
@@ -29,14 +29,14 @@ function Books() {
       <div className="box">
         {books.items &&
           books.renders.map((item, index) => (
-            <div className={"item"} key={item.id}>
+            <div className={"item"} key={item.renderKey}>
               <div className="image">
                 {item.img && <img src={item.img} alt="" />}
               </div>
 
               <div className="info">
                 <div>
-                  {/* <div>{item.author}</div> */}
+                 
                   <div>{item.title}</div>
 
                   <button

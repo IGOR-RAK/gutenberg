@@ -1,4 +1,5 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable , autorun } from "mobx";
+import localStorage from 'mobx-localstorage';
 import { IBook, IResourses, IRenders } from "../models/ibook";
 import Api from "../api/api";
 import { IAgents } from "./../models/ibook";
@@ -12,7 +13,22 @@ export default class Books {
   favorites: IRenders[] = [];
   constructor() {
     makeAutoObservable(this);
+    autorun(() => {
+      // console.log("json",localStorage.getItem('fav'));
+      const localData = localStorage.getItem('fav')
+      console.log("localData",localData);
+      if (localData){
+        const parse = JSON.parse(localData)
+        console.log("parse",parse);
+        this.initFav(parse)
+      }
+      
+
+    });
   }
+
+
+  
 
   setFavorites(fav: IRenders) {
     const find = this.favorites.find(item=>item.id===fav.id)
@@ -27,10 +43,9 @@ export default class Books {
     
   }
 
-  initFav(){
-    const favorites:IRenders[] = JSON.parse(localStorage.getItem('fav') || "") 
-    if(favorites){this.favorites=favorites}
-
+  initFav(favs:IRenders[]){
+  
+    this.favorites=favs
   }
 
   setSearchInput(str: string) {
@@ -58,7 +73,8 @@ export default class Books {
       this.setLoading(true);
       this.page += 1;
       const res: any = await Api.getCards(this.page);
-      const results = res?.data?.results;
+      const data = res?.data?.results
+      const results = data;
       this.addItems(results);
       if (this.page < 3) {
         this.fetchItems();
@@ -79,7 +95,7 @@ export default class Books {
         this.page = 0
         this.fetchItems()
       }
-      if (this.searchInput.length > 3) {
+      if (this.searchInput.length > 2) {
         this.setItems([])
         this.setSearchLoader(true);
         const res: any = await Api.getCardsByAuthor(this.searchInput);
@@ -126,8 +142,9 @@ export default class Books {
         description: item.description,
         img: this.getResourse("medium", item.resources),
         link: this.getResourse("htm", item.resources),
-        fav:this.isFav(item)
-        // author: this.getAuthor(item.agents),
+        fav:this.isFav(item),
+        renderKey:Math.floor(Math.random() * 10000000)
+      
       };
     });
   }

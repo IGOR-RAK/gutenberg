@@ -28,5 +28,6 @@ export interface IRenders {
   img: string | null;
   link: string | null;
   fav:boolean
+  renderKey:number
   // author: string;
 }
