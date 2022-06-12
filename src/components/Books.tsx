@@ -11,11 +11,11 @@ function Books() {
     books.fetchItems();
   }, []);
 
-
+  
   if (books.isSearchLoading) {
     return (
       <main className="main">
-        <div className="loader"></div>
+         <Loader/>
       </main>
     );
   }

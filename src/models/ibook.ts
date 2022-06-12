@@ -26,6 +26,7 @@ export interface IRenders {
   title: string;
   description: string;
   img: string | null;
+  img_small: string | null;
   link: string | null;
   fav:boolean
   renderKey:number

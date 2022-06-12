@@ -137,9 +137,11 @@ export default class Books {
         title: item.title,
         description: item.description,
         img: this.getResourse("medium", item.resources),
+        img_small: this.getResourse("small.jpg", item.resources),
         link: this.getResourse("htm", item.resources),
         fav:this.isFav(item),
         renderKey:Math.floor(Math.random() * 10000000)
+        
       
       };
     });

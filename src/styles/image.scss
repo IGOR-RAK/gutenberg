@@ -1,0 +1,15 @@
+.progressive{
+    object-fit: cover;
+    object-fit: center;
+}
+
+.loading{
+    filter: blur(10px);
+}
+
+
+.loaded{
+    filter: blur(0);
+    transition: filter 0.3s linear;
+
+}
