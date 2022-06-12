@@ -13,18 +13,14 @@ export default class Books {
   favorites: IRenders[] = [];
   constructor() {
     makeAutoObservable(this);
-    autorun(() => {
-      // console.log("json",localStorage.getItem('fav'));
-      const localData = localStorage.getItem('fav')
-      console.log("localData",localData);
+    autorun(() => {    
+      const localData = localStorage.getItem('fav')     
       if (localData){
-        const parse = JSON.parse(localData)
-        console.log("parse",parse);
+        const parse = JSON.parse(localData)      
         this.initFav(parse)
-      }
-      
-
+      }     
     });
+   
   }
 
 
